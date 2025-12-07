@@ -1,78 +1,403 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <!--
-    Blog Fórmula 1 - index.html
-    Arquivo único (~400 linhas) pronto para GitHub Pages.
-    Coloque imagens em /img/ com os nomes usados abaixo ou ajuste os src.
-  -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Blog Fórmula 1 • Análises, Pilotos e Notícias</title>
-  <meta name="description" content="Blog sobre Fórmula 1: notícias, análises técnicas, perfis de pilotos e equipes.">
-  <meta property="og:title" content="Blog Fórmula 1 • Notícias e Análises">
-  <meta property="og:description" content="Tudo sobre Fórmula 1: história, equipes, campeonatos e tecnologia.">
-  <meta property="og:image" content="https://USERNAME.github.io/REPO/img/og-image.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="data:,"> <!-- remove request for external file -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog de Fórmula 1 - Temporada 2025</title>
 
-  <!-- Google Font opcional (fallback no CSS) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* -----------------------------------------------------------
+           RESET + VARIÁVEIS
+        ------------------------------------------------------------ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <style>
-    /* ========= RESET E VARIÁVEIS ========= */
-    :root{
-      --primary:#d40000; /* vermelho F1 */
-      --bg:#f4f4f6;
-      --card:#ffffff;
-      --text:#111827;
-      --muted:#6b7280;
-      --glass: rgba(255,255,255,0.6);
-      --radius:12px;
-      --max-width:1100px;
-    }
-    [data-theme="dark"]{
-      --primary:#ff4b4b;
-      --bg:#0b1020;
-      --card:#0f1724;
-      --text:#e6eef8;
-      --muted:#9aa6bf;
-      --glass: rgba(255,255,255,0.03);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background:var(--bg);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
+        :root {
+            --bg: #f2f2f2;
+            --text: #222;
+            --card: #fff;
+            --primary: #d40000;
+            --shadow: rgba(0,0,0,0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg: #111;
+            --text: #f1f1f1;
+            --card: #1a1a1a;
+            --shadow: rgba(255,255,255,0.05);
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* -----------------------------------------------------------
+           HEADER + MENU
+        ------------------------------------------------------------ */
+        header {
+            background: var(--primary);
+            padding: 20px;
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: .3s;
+        }
+
+        nav a:hover {
+            opacity: .7;
+        }
+
+        /* MENU MOBILE */
+        .menu-btn {
+            display: none;
+            font-size: 26px;
+            cursor: pointer;
+        }
+
+        @media(max-width: 768px) {
+            nav {
+                display: none;
+                flex-direction: column;
+                background: var(--primary);
+                padding: 10px;
+            }
+            nav.open {
+                display: flex;
+            }
+            .menu-btn {
+                display: block;
+            }
+        }
+
+        /* -----------------------------------------------------------
+           BANNER
+        ------------------------------------------------------------ */
+        .banner {
+            width: 100%;
+            height: 280px;
+            background-image: url('img/banner.jpg');
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 40px;
+        }
+
+        /* -----------------------------------------------------------
+           LAYOUT
+        ------------------------------------------------------------ */
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            display: flex;
+            gap: 30px;
+        }
+
+        .main {
+            width: 70%;
+        }
+
+        .sidebar {
+            width: 30%;
+        }
+
+        @media(max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+            .main, .sidebar {
+                width: 100%;
+            }
+        }
+
+        /* -----------------------------------------------------------
+           POSTS
+        ------------------------------------------------------------ */
+        .post {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .post img {
+            width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 15px 0;
+        }
+
+        .post h2 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .meta {
+            font-size: 14px;
+            opacity: .7;
+            margin-bottom: 10px;
+        }
+
+        /* -----------------------------------------------------------
+           SIDEBAR
+        ------------------------------------------------------------ */
+        .sidebar-card {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .sidebar-card h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .category {
+            cursor: pointer;
+            padding: 8px;
+            background: #eee;
+            margin: 5px 0;
+            border-radius: 5px;
+            transition: .3s;
+        }
+
+        .category:hover {
+            opacity: .7;
+        }
+
+        /* -----------------------------------------------------------
+           FOOTER
+        ------------------------------------------------------------ */
+        footer {
+            background: #000;
+            color: #aaa;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        /* -----------------------------------------------------------
+           LIGHTBOX
+        ------------------------------------------------------------ */
+        .lightbox-bg {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right:0; bottom:0;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .lightbox-bg img {
+            width: 90%;
+            max-width: 900px;
+            border-radius: 10px;
+        }
+
+        /* Dark mode button */
+        .dark-btn {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="header-content">
+        <h1>Fórmula 1 - 2025</h1>
+
+        <span class="menu-btn" onclick="toggleMenu()">☰</span>
+
+        <nav id="menu">
+            <a href="#noticias">Notícias</a>
+            <a href="#equipes">Equipes</a>
+            <a href="#pilotos">Pilotos</a>
+            <a href="#corridas">Corridas</a>
+        </nav>
+
+        <button class="dark-btn" onclick="toggleDark()">🌙</button>
+    </div>
+</header>
+
+<!-- BANNER -->
+<div class="banner"></div>
+
+<!-- PRINCIPAL -->
+<div class="container">
+    <div class="main">
+
+        <!-- POST 1 -->
+        <div class="post" data-category="noticias" id="noticias">
+            <h2>Destaque: Último GP da Temporada 2025</h2>
+            <p class="meta">Publicado em 02/12/2025 • Categoria: Notícias</p>
+
+            <p>A temporada 2025 chega ao fim com o GP de Abu Dhabi, trazendo uma das disputas de título mais emocionantes da década.</p>
+
+            <img src="img/image1.jpg" alt="Carro de F1 na pista" onclick="openLightbox(this.src)">
+
+            <p>Max Verstappen larga na pole position, seguido de Lando Norris. A disputa promete fortes emoções até a última volta.</p>
+        </div>
+
+        <!-- POST 2 -->
+        <div class="post" data-category="equipes" id="equipes">
+            <h2>Haas Assina com Toyota para 2026</h2>
+            <p class="meta">Publicado em 22/11/2025 • Categoria: Equipes</p>
+
+            <img src="img/image2.jpg" alt="Haas 2025" onclick="openLightbox(this.src)">
+
+            <p>A parceria entre Haas e Toyota movimenta o paddock. Especialistas acreditam que a equipe pode dar um salto de performance.</p>
+        </div>
+
+        <!-- POST 3 -->
+        <div class="post" data-category="pilotos" id="pilotos">
+            <h2>Pilotos que se destacaram em 2025</h2>
+            <p class="meta">Publicado em 18/10/2025 • Categoria: Pilotos</p>
+
+            <img src="img/image3.jpg" alt="Pilotos de F1" onclick="openLightbox(this.src)">
+
+            <p>Além dos favoritos, novos talentos chamaram atenção pela consistência ao longo da temporada.</p>
+        </div>
+
+        <!-- POST 4 -->
+        <div class="post" data-category="corridas" id="corridas">
+            <h2>Corrida Noturna em Yas Marina</h2>
+            <p class="meta">Publicado em 15/10/2025 • Categoria: Corridas</p>
+
+            <img src="img/image4.jpg" alt="Yas Marina" onclick="openLightbox(this.src)">
+
+            <p>A icônica corrida noturna fecha mais um ciclo de competições com espetáculo visual e disputas intensas.</p>
+        </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+        <!-- BUSCA -->
+        <div class="sidebar-card">
+            <h3>Buscar</h3>
+            <input type="text" id="search" placeholder="Digite para buscar..." 
+            onkeyup="searchPosts()" style="width:100%; padding:10px;">
+        </div>
+
+        <!-- CATEGORIAS -->
+        <div class="sidebar-card">
+            <h3>Categorias</h3>
+
+            <div class="category" onclick="filterPosts('noticias')">Notícias</div>
+            <div class="category" onclick="filterPosts('equipes')">Equipes</div>
+            <div class="category" onclick="filterPosts('pilotos')">Pilotos</div>
+            <div class="category" onclick="filterPosts('corridas')">Corridas</div>
+            <div class="category" onclick="filterPosts('all')">Mostrar tudo</div>
+        </div>
+
+    </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox-bg" id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img">
+</div>
+
+<!-- FOOTER -->
+<footer>
+    Blog de Fórmula 1 • Criado por Lucas • 2025  
+</footer>
+
+<!-- JAVASCRIPT -->
+<script>
+    // MENU MOBILE
+    function toggleMenu() {
+        document.getElementById('menu').classList.toggle('open');
     }
 
-    /* ========= LAYOUT PRINCIPAL ========= */
-    header{
-      background:linear-gradient(90deg,var(--primary),#b20000);
-      color:#fff;
-      padding:18px 20px;
-      position:sticky;
-      top:0;
-      z-index:50;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    // DARK MODE
+    function toggleDark() {
+        const html = document.documentElement;
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = "light";
+            localStorage.setItem("theme", "light");
+        } else {
+            html.dataset.theme = "dark";
+            localStorage.setItem("theme", "dark");
+        }
     }
-    .nav-wrap{
-      max-width:var(--max-width);
-      margin:auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
+
+    // Aplicar tema salvo
+    if (localStorage.getItem("theme")) {
+        document.documentElement.dataset.theme = localStorage.getItem("theme");
     }
-    .brand{
-      display:flex;
-      gap:12px;
+
+    // FILTRO DE CATEGORIAS
+    function filterPosts(category) {
+        const posts = document.querySelectorAll(".post");
+        posts.forEach(post => {
+            if (category === "all" || post.dataset.category === category) {
+                post.style.display = "block";
+            } else {
+                post.style.display = "none";
+            }
+        });
+    }
+
+    // BUSCA
+    function searchPosts() {
+        let input = document.getElementById("search").value.toLowerCase();
+        const posts = document.querySelectorAll(".post");
+
+        posts.forEach(post => {
+            let text = post.innerText.toLowerCase();
+            post.style.display = text.includes(input) ? "block" : "none";
+        });
+    }
+
+    // LIGHTBOX
+    function openLightbox(src) {
+        document.getElementById("lightbox-img").src = src;
+        document.getElementById("lightbox").style.display = "flex";
+    }
+
+    function closeLightbox() {
+        document.getElementById("lightbox").style.display = "none";
+    }
+</script>
+
+</body>
+</html>      gap:12px;
       align-items:center;
     }
     .logo {
